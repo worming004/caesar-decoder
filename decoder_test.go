@@ -19,9 +19,9 @@ func TestDecoder(t *testing.T) {
 		{"shift 1 uppercase", 1, "ABC", "BCD"},
 		{"shift 0 uppercase", 0, "ABC", "ABC"},
 		{"shift 1, but end of alphabet", 1, "xyzabc", "yzabcd"},
-		{"shift 1, but end of alphabet", 1, "xYZaBc", "yZAbCd"},
-		{"shift 1, but end of alphabet", 1, "1234567890", "1234567890"},
-		{"shift 1, but end of alphabet", 1, "&é\"'(§è!çà)-", "&é\"'(§è!çà)-"},
+		{"shift 1, but end of alphabet with uppercase", 1, "xYZaBc", "yZAbCd"},
+		{"shift 1, number should not change", 1, "1234567890", "1234567890"},
+		{"shift 1, special chars", 1, "&é\"'(§è!çà)-", "&é\"'(§è!çà)-"},
 	}
 
 	for _, tt := range tests {
