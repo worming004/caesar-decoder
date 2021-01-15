@@ -6,20 +6,20 @@ import (
 )
 
 type app struct {
-	alldecoder []decoder
+	alldecoders []decoder
 }
 
 func newApp() app {
-	var alldecoder = make([]decoder, 26)
-	for i := 0; i < len(alldecoder); i++ {
-		alldecoder[i] = newCaesarDecoder(i)
+	var alldecoders = make([]decoder, 26)
+	for i := 0; i < len(alldecoders); i++ {
+		alldecoders[i] = newCaesarDecoder(i)
 	}
-	return app{alldecoder: alldecoder}
+	return app{alldecoders: alldecoders}
 }
 
 func (app app) run() {
 	toTranslate := os.Args[1]
-	for i, decoder := range app.alldecoder {
+	for i, decoder := range app.alldecoders {
 		fmt.Printf("%d: %s\n", i, decoder.decode(toTranslate))
 	}
 }
