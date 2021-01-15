@@ -13,7 +13,8 @@ func TestDecoder(t *testing.T) {
 	}{
 		{"shift 0", 0, "abc", "abc"},
 		{"shift 1", 1, "abc", "bcd"},
-		// {"shift 1, but end of alphabet", 1, "xyzabc", "abcbcd"},
+		{"shift 1, but end of alphabet", 1, "xyzabc", "yzabcd"},
+		{"shift 1, but end of alphabet", 1, "xYZaBc", "yZAbCd"},
 	}
 
 	for _, tt := range tests {

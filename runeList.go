@@ -5,8 +5,8 @@ import (
 	"fmt"
 )
 
-const runeToShiftLowerCase = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-const runeToShiftUpperCase = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const runeToShiftLowerCase = "abcdefghijklmnopqrstuvwxyz"
+const runeToShiftUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 type caseFilter int
 
@@ -25,7 +25,7 @@ func newShiftRing(c caseFilter) shiftRing {
 		runeToShift = runeToShiftUpperCase
 		break
 	}
-	rg := ring.New(52)
+	rg := ring.New(len(runeToShift))
 	length := rg.Len()
 	for i := 0; i < length; i++ {
 		rg.Value = rune(runeToShift[i])
@@ -37,6 +37,10 @@ func newShiftRing(c caseFilter) shiftRing {
 
 type shiftRing struct {
 	*ring.Ring
+}
+
+func (sr *shiftRing) getCharOnShift(shift int) rune {
+	return sr.Move(shift).Value.(rune)
 }
 
 func (sr *shiftRing) stopOnChar(r rune) (*shiftRing, error) {

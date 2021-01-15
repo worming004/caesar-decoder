@@ -12,9 +12,21 @@ type decod struct {
 
 func (d decod) decode(input string) string {
 	result := ""
-	for _, c := range input {
-		newRune := c + rune(d.shift)
-		result = result + string(newRune)
+	for _, rToTrans := range input {
+
+		lowerShift := newShiftRing(lower)
+		upperShift := newShiftRing(upper)
+		s, err := lowerShift.stopOnChar(rToTrans)
+		if err == nil {
+			result = result + string(s.getCharOnShift(d.shift))
+			continue
+		}
+		s, err = upperShift.stopOnChar(rToTrans)
+		if err == nil {
+			result = result + string(s.getCharOnShift(d.shift))
+			continue
+		}
+		result = result + string(rToTrans)
 	}
 	return result
 }
