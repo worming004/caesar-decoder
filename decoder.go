@@ -5,15 +5,14 @@ import "container/ring"
 type decoder interface {
 	decode(input string) string
 }
-type decod struct {
+type caesarDecod struct {
 	shiftRing *ring.Ring
 	shift     int
 }
 
-func (d decod) decode(input string) string {
+func (d caesarDecod) decode(input string) string {
 	result := ""
 	for _, rToTrans := range input {
-
 		lowerShift := newShiftRing(lower)
 		upperShift := newShiftRing(upper)
 		s, err := lowerShift.stopOnChar(rToTrans)
@@ -31,8 +30,8 @@ func (d decod) decode(input string) string {
 	return result
 }
 
-func newDecoder(shift int) decoder {
-	return decod{
+func newCaesarDecoder(shift int) decoder {
+	return caesarDecod{
 		shift: shift,
 	}
 }
